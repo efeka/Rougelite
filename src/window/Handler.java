@@ -6,8 +6,11 @@ import java.util.ArrayList;
 
 import framework.GameObject;
 import framework.ObjectId;
+import objects.ArrowProjectile;
 import objects.Block;
 import objects.Player;
+import objects.ShooterTrap;
+import objects.TempEnemy;
 
 public class Handler {
 	
@@ -24,8 +27,8 @@ public class Handler {
 	public ArrayList<GameObject> layer1 = new ArrayList<GameObject>();
 	public ArrayList<GameObject> layer2 = new ArrayList<GameObject>();
 	public ArrayList<GameObject> layer3 = new ArrayList<GameObject>();
-	GameObject player;
 	
+	public Player player;
 	public static int playerStartX, playerStartY;
 	
 	public Handler(Camera cam) {
@@ -49,18 +52,33 @@ public class Handler {
 				int blue = (pixel) & 0xff;
 
 				if (red == 178 && green == 0 && blue == 255) 
-					addObject(new Block(xx * 32, yy * 32, 0, false, ObjectId.Block), MIDDLE_LAYER);
+					addObject(new Block(xx * 32, yy * 32, 0, false, true, ObjectId.Block), MIDDLE_LAYER);
 				if (red == 255 && green == 0 && blue == 220)
-					addObject(new Block(xx * 32, yy * 32, 1, false, ObjectId.Block), MIDDLE_LAYER);
+					addObject(new Block(xx * 32, yy * 32, 1, false, true, ObjectId.Block), MIDDLE_LAYER);
 				if (red == 255 && green == 0 && blue == 110)
-					addObject(new Block(xx * 32, yy * 32, 2, false, ObjectId.Block), MIDDLE_LAYER);
+					addObject(new Block(xx * 32, yy * 32, 2, false, true, ObjectId.Block), MIDDLE_LAYER);
 				if (red == 200 && green == 255 && blue == 200) 
-					addObject(new Block(xx * 32, yy * 32, 0, true, ObjectId.Block), MIDDLE_LAYER);
+					addObject(new Block(xx * 32, yy * 32, 0, true, true, ObjectId.Block), MIDDLE_LAYER);
 				if (red == 127 && green == 51 && blue == 0)
-					addObject(new Block(xx * 32, yy * 32, 3, false, ObjectId.Block), MIDDLE_LAYER);
-				if (red == 127 && green == 0 && blue == 0)
-					addObject(new Block(xx * 32, yy * 32, 4, false, ObjectId.Block), MIDDLE_LAYER);
+					addObject(new Block(xx * 32, yy * 32, 3, false, true, ObjectId.Block), MIDDLE_LAYER);
 				
+				//background
+				if (red == 127 && green == 0 && blue == 0)
+					addObject(new Block(xx * 32, yy * 32, 4, false, false, ObjectId.Block), BOTTOM_LAYER);
+				
+				//enemies
+				if (red == 255 && green == 0 && blue == 0)
+					addObject(new TempEnemy(xx * 32, yy * 32, this, ObjectId.BasicEnemy), MIDDLE_LAYER);
+				if (red == 182 && green == 255 && blue == 0)
+					addObject(new ShooterTrap(xx * 32, yy * 32, ShooterTrap.SHOOT_LEFT, 1500, this, ObjectId.ShooterTrap), MIDDLE_LAYER);
+				if (red == 76 && green == 255 && blue == 0)
+					addObject(new ShooterTrap(xx * 32, yy * 32, ShooterTrap.SHOOT_RIGHT, 1500, this, ObjectId.ShooterTrap), MIDDLE_LAYER);
+				if (red == 0 && green == 255 && blue == 144)
+					addObject(new ShooterTrap(xx * 32, yy * 32, ShooterTrap.SHOOT_UP, 1500, this, ObjectId.ShooterTrap), MIDDLE_LAYER);
+				if (red == 0 && green == 183 && blue == 100)
+					addObject(new ShooterTrap(xx * 32, yy * 32, ShooterTrap.SHOOT_DOWN, 1000, this, ObjectId.ShooterTrap), MIDDLE_LAYER);
+				
+				//player
 				if (red == 0 && green == 0 && blue == 255) {
 					player = new Player(xx * 32, yy * 32, this, cam, ObjectId.Player);
 					addObject(player, MIDDLE_LAYER);

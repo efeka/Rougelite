@@ -8,12 +8,50 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import framework.KeyInput;
+import framework.MouseInput;
 import framework.ObjectId;
 import framework.Texture;
-import objects.Block;
-import objects.Player;
 
 public class Main extends Canvas implements Runnable {
+	
+	/*
+	 * TODO: 
+	 * melee atak (yapildi)
+	 * atak animasyonu (yapildi)
+	 * 
+	 * tuzaklar:
+	 * ---------
+	 * hammerwatchtan hepsini cal
+	 * yerden cikip saga sola oynayan bicak
+	 * 
+	 * dusman tipleri:
+	 * ---------------
+	 * kovalayan, ates ederken duran, sadece arkasindan damage yiyen dusman
+	 * elemental vuran dusman
+	 * duvarin icinden vurabilen dusman
+	 * melee kovayalan dusman
+	 * attiklari duvara carpan dusman (1li 2li 3lu ates edebilir) sana hedef alir
+	 * hayvan gibi kovalayip ziplayabilen melee dusman?
+	 * mermisi kovalamaya calisan dusman
+	 * attigi sey duvardan seken dusman
+	 * senden kacip ates etrafina edip kacmaya devam eden dusman
+	 * 
+	 * boss:
+	 * -----
+	 * senin elementaline gore armoru olan boss
+	 * 
+	 * itemler:
+	 * --------
+	 * x saniyede bir damage bloklayan item
+	 * 
+	 * bolumlerin temalari:
+	 * -----------------------
+	 * col
+	 * orman
+	 * 
+	 * aldiginda jumplari 0layan sey
+	 */
+	
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -45,15 +83,13 @@ public class Main extends Canvas implements Runnable {
 		tex = new Texture();
 		cam = new Camera(0, 0);
 		handler = new Handler(cam);
-//		menu = new Menu(0, 0, ObjectId.Menu);
-//		
-//		clouds = loader.loadImage("/clouds.png");
-//
+
 		handler.LoadImageLevel(level);
 		
 		this.addKeyListener(new KeyInput(handler));
-//		this.addMouseListener(new MouseInput());
+		this.addMouseListener(new MouseInput(handler));
 	}
+	
 	public synchronized void start() {
 		if (running) 
 			return;

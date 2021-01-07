@@ -16,13 +16,12 @@ public class Block extends GameObject {
 	Texture tex = Main.getTex();
 	private int type;
 
-	private int width = 32;
-	private int height = 32;
-
-	public Block(float x, float y, int type, boolean climbable, ObjectId id) {
+	public Block(float x, float y, int type, boolean climbable, boolean collidable, ObjectId id) {
 		super(x, y, id);
 		this.type = type;
 		this.climbable = climbable;
+		this.collidable = collidable;
+		width = height = 32;
 	}
 
 	public void tick(ArrayList<GameObject> object) {}
@@ -34,13 +33,17 @@ public class Block extends GameObject {
 			if (!climbable)
 				g.setColor(Color.white);
 			else
-				g.setColor(Color.black);
+				g.setColor(Color.yellow);
 			g.drawRect((int) x, (int) y, width, height);
 		}
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle((int)x, (int)y, 32, 32);
+		return new Rectangle((int) x, (int) y, 32, 32);
+	}
+
+	public Rectangle getAttackBounds() {
+		return null;
 	}
 
 }

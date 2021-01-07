@@ -13,12 +13,19 @@ public class Texture {
 	
 	public BufferedImage[] player = new BufferedImage[15];
 	public BufferedImage[] playerClimb = new BufferedImage[14];
+	public BufferedImage[] playerWalk = new BufferedImage[14];
 	public BufferedImage[] playerJump = new BufferedImage[4];
-	public BufferedImage[] sword = new BufferedImage[10];
+	public BufferedImage[] woodenSword = new BufferedImage[14];
+	public BufferedImage[] playerPunch = new BufferedImage[2];
+	public BufferedImage[] playerCrouch = new BufferedImage[2];
+	public BufferedImage[] playerDash = new BufferedImage[2];
 	
 	public BufferedImage[] dustEffect = new BufferedImage[5];
+	public BufferedImage[] attackEffect = new BufferedImage[8];
 	
 	public BufferedImage[] blocks = new BufferedImage[10];
+	
+	public BufferedImage[] arrow = new BufferedImage[4];
 	
 	public Texture() {
 		BufferedImageLoader loader = new BufferedImageLoader();
@@ -48,10 +55,22 @@ public class Texture {
 		for (int i = 0; i < blocks.length; i++)
 			blocks[i] = block_sheet.getSubimage(1 + 33 * i, 1, 32, 32);
 		
-		//dust effect
+		for (int i = 0; i < 2; i++)
+			playerPunch[i] = player_sheet.getSubimage(1 + 33 * i, 164, 32, 32);
+		for (int i = 0; i < 2; i++)
+			playerCrouch[i] = player_sheet.getSubimage(1 + 33 * i, 197, 32, 32);
+		for (int i = 0; i < 2; i++)
+			playerDash[i] = player_sheet.getSubimage(1 + 33 * i, 230, 32, 32);
+		
+		for (int i = 0; i < 4; i++)
+			arrow[i] = block_sheet.getSubimage(1 + 33 * i, 34, 32, 32);
+		
+		//effects
 		for (int i = 0; i < 5; i++)
 			dustEffect[i] = VFX.getSubimage(1 + 33 * i, 1, 32, 32);
-		
-		sword[0] = player_sheet.getSubimage(66, 0, 150, 40);
+		for (int i = 0; i < 4; i++)
+			attackEffect[i] = VFX.getSubimage(1 + 130 * i, 34, 129, 129);
+		for (int i = 0; i < 4; i++)
+			attackEffect[i + 4] = VFX.getSubimage(1 + 130 * i, 34 + 129, 129, 129);
 	}
 }

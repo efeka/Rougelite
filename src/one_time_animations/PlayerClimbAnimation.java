@@ -21,10 +21,8 @@ public class PlayerClimbAnimation extends GameObject {
 	
 	public PlayerClimbAnimation(float x, float y, int facing, Handler handler, ObjectId id) {
 		super(x, y, id);
-		System.out.println("a");
 		if (playing)
 			return;
-		System.out.println("b");
 		playing = true;
 		this.handler = handler;
 		if (facing == 1)
@@ -47,6 +45,10 @@ public class PlayerClimbAnimation extends GameObject {
 	}
 
 	public Rectangle getBounds() {
+		return null;
+	}
+
+	public Rectangle getAttackBounds() {
 		return null;
 	}
 	

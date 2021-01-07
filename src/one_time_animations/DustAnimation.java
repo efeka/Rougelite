@@ -20,7 +20,7 @@ public class DustAnimation extends GameObject {
 	public DustAnimation(float x, float y, Handler handler, ObjectId id) {
 		super(x, y, id);
 		this.handler = handler;
-		dustAnim = new Animation(4, tex.dustEffect[0], tex.dustEffect[1], tex.dustEffect[2], tex.dustEffect[3], tex.dustEffect[4]);
+		dustAnim = new Animation(1, tex.dustEffect[0], tex.dustEffect[1], tex.dustEffect[2], tex.dustEffect[3], tex.dustEffect[4]);
 		
 	}
 
@@ -36,6 +36,10 @@ public class DustAnimation extends GameObject {
 	}
 
 	public Rectangle getBounds() {
+		return null;
+	}
+
+	public Rectangle getAttackBounds() {
 		return null;
 	}
 }
