@@ -6,8 +6,8 @@ public class Camera {
 
 	private float x, y;
 
-	private float moveX = 0, moveY = 0;
-	private int stepCount = 0, maxSteps = 0;
+	public float moveX = 0, moveY = 0;
+	public int stepCount = 0, maxSteps = 0;
 	private boolean moving = false;
 
 	public Camera(float x, float y) {
@@ -22,8 +22,9 @@ public class Camera {
 		}
 		else {
 			moving = false;
-			x = (int) (-player.getX() + Main.WIDTH / 2);
-			y = (int) (-player.getY() + Main.HEIGHT / 2);
+			moveX = moveY = 0;
+			x = (int) (-player.getX() + Window.getWidth() / 2);
+			y = (int) (-player.getY() + Window.getHeight() / 2);
 		}
 	}
 

@@ -1,12 +1,10 @@
 package framework;
 
-import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
+import objects.PlayerInfo;
 import one_time_animations.DustAnimation;
-import one_time_animations.Trail;
 import window.Handler;
 import window.Main;
 
@@ -62,7 +60,7 @@ public class KeyInput extends KeyAdapter{
 					if (!tempObject.getHanging())
 						handler.layer3.add(new DustAnimation(tempObject.getX(), tempObject.getY() + tempObject.getHeight() - 48, handler, ObjectId.DustAnimation));
 				}
-				if (key == KeyEvent.VK_SHIFT && !tempObject.getCrouching() && System.currentTimeMillis() - dashCooldown > 1000) {
+				if (key == KeyEvent.VK_SHIFT && !tempObject.getCrouching() && !tempObject.hanging && System.currentTimeMillis() - dashCooldown > 1000) {
 					dashCooldown = System.currentTimeMillis();
 					tempObject.dashing = true;
 					tempObject.setVelY(0);
@@ -72,6 +70,7 @@ public class KeyInput extends KeyAdapter{
 				if (key == KeyEvent.VK_R) {
 					tempObject.setX(Handler.playerStartX);
 					tempObject.setY(Handler.playerStartY);
+					PlayerInfo.health = PlayerInfo.maxHealth;
 				}
 			}
 		}

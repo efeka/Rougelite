@@ -6,9 +6,12 @@ public enum ObjectId {
 	Block(),
 	PlayerClimbAnimation(),
 	DustAnimation(),
+	VerticalDustAnimation(),
 	AttackAnimation(),
 	ShooterTrap(),
+	ChangingShooterTrap(),
 	ArrowProjectile(),
+	BallProjectile(),
 	
 	Water(),
 	Bullet(),

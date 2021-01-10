@@ -11,16 +11,16 @@ import window.Animation;
 import window.Handler;
 import window.Main;
 
-public class DustAnimation extends GameObject {
+public class VerticalDustAnimation extends GameObject {
 	
 	Animation dustAnim;
 	Texture tex = Main.getTex();
 	Handler handler;
 
-	public DustAnimation(float x, float y, Handler handler, ObjectId id) {
+	public VerticalDustAnimation(float x, float y, Handler handler, ObjectId id) {
 		super(x, y, id);
 		this.handler = handler;
-		dustAnim = new Animation(4, tex.dustEffect[0], tex.dustEffect[1], tex.dustEffect[2], tex.dustEffect[3], tex.dustEffect[4]);
+		dustAnim = new Animation(4, tex.verticalDustEffect[0], tex.verticalDustEffect[1], tex.verticalDustEffect[2], tex.verticalDustEffect[3], tex.verticalDustEffect[4]);
 		
 	}
 

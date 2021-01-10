@@ -6,8 +6,9 @@ import java.util.ArrayList;
 
 import framework.GameObject;
 import framework.ObjectId;
-import objects.ArrowProjectile;
 import objects.Block;
+import objects.ChangingShooterTrap;
+import objects.HUD;
 import objects.Player;
 import objects.ShooterTrap;
 import objects.TempEnemy;
@@ -76,7 +77,9 @@ public class Handler {
 				if (red == 0 && green == 255 && blue == 144)
 					addObject(new ShooterTrap(xx * 32, yy * 32, ShooterTrap.SHOOT_UP, 1500, this, ObjectId.ShooterTrap), MIDDLE_LAYER);
 				if (red == 0 && green == 183 && blue == 100)
-					addObject(new ShooterTrap(xx * 32, yy * 32, ShooterTrap.SHOOT_DOWN, 1000, this, ObjectId.ShooterTrap), MIDDLE_LAYER);
+					addObject(new ShooterTrap(xx * 32, yy * 32, ShooterTrap.SHOOT_DOWN, 1500, this, ObjectId.ShooterTrap), MIDDLE_LAYER);
+				if (red == 0 && green == 127 && blue == 14)
+					addObject(new ChangingShooterTrap(xx * 32, yy * 32, 1500, this, ObjectId.ChangingShooterTrap), MIDDLE_LAYER);
 				
 				//player
 				if (red == 0 && green == 0 && blue == 255) {
@@ -87,6 +90,7 @@ public class Handler {
 				}
 			}
 		}
+		addObject(new HUD(0, 0, cam, this, ObjectId.HUD), TOP_LAYER);
 	}
 	
 	public void tick() {

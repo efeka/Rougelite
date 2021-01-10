@@ -2,6 +2,7 @@ package objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -48,6 +49,9 @@ public class TempEnemy extends GameObject {
 	}
 	
 	private void collision(ArrayList<GameObject> object) {
+		if (getBounds().intersects(handler.player.getBounds())) 
+			handler.player.takeDamage(2);
+		
 		for (int i = 0; i < object.size(); i++) {
 			GameObject tempObject = object.get(i);
 			if (tempObject.getId() == ObjectId.Block && tempObject.getCollidable()) {

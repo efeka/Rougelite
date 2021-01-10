@@ -11,52 +11,71 @@ import framework.KeyInput;
 import framework.MouseInput;
 import framework.ObjectId;
 import framework.Texture;
+import objects.HUD;
 
 public class Main extends Canvas implements Runnable {
 	
 	/*
-	 * TODO: 
-	 * melee atak (yapildi)
-	 * atak animasyonu (yapildi)
-	 * 
-	 * tuzaklar:
-	 * ---------
-	 * hammerwatchtan hepsini cal
-	 * yerden cikip saga sola oynayan bicak
-	 * 
-	 * dusman tipleri:
-	 * ---------------
-	 * kovalayan, ates ederken duran, sadece arkasindan damage yiyen dusman
-	 * elemental vuran dusman
-	 * duvarin icinden vurabilen dusman
-	 * melee kovayalan dusman
-	 * attiklari duvara carpan dusman (1li 2li 3lu ates edebilir) sana hedef alir
-	 * hayvan gibi kovalayip ziplayabilen melee dusman?
-	 * mermisi kovalamaya calisan dusman
-	 * attigi sey duvardan seken dusman
-	 * senden kacip ates etrafina edip kacmaya devam eden dusman
-	 * 
-	 * boss:
-	 * -----
-	 * senin elementaline gore armoru olan boss
-	 * 
-	 * itemler:
-	 * --------
-	 * x saniyede bir damage bloklayan item
-	 * 
-	 * bolumlerin temalari:
-	 * -----------------------
-	 * col
-	 * orman
-	 * 
-	 * aldiginda jumplari 0layan sey
+	 YAPILCAKLAR:
+	 ------------
+	
+	 ELEMENTLER:
+	 - ates ve zehir archerodaki gibi
+	 - buz slow atar
+	 - elektrik periyodik olarak stun
+	 
+	 PLAYER:
+	 + melee atak
+	 + atak animasyonu
+	 + playerin cani ve damage yemesi
+	 + canlarin ekranda gosterilmesi (HUD)
+	 + damage yedikten sonra invulnerable efekti
+	 - damage yediginde playeri notify edicek bi efekt
+	 - envanter ekrani
+	 - level sistemi
+	 - skill agaci
+	 
+	 TUZAKLAR:
+	 + ok atan tuzak
+	 + (x) ve (+) sekillerinde donusumlu ates eden tuzak
+	 - yerden ates periyodik cikaran tuzak
+	 - yerden cikip saga sola oynayan bicak
+	 - menziline girdiginde sana hedef alip chargelayip ates eden cannon
+	  
+	 DUSMAN TIPLERI:
+	 - her temaya ozel dusman bul
+	 - kovalayan, ates ederken duran, sadece arkasindan damage yiyen dusman
+	 - elemental vuran dusman
+	 - duvarin icinden vurabilen dusman
+	 - melee kovayalan dusman
+	 - attiklari duvara carpan dusman (1li 2li 3lu ates edebilir) sana hedef alir
+	 - hayvan gibi kovalayip ziplayabilen melee dusman?
+	 - mermisi kovalamaya calisan dusman
+	 - attigi sey duvardan seken dusman
+	 - senden kacip ates etrafina edip kacmaya devam eden dusman
+	 - zeminden firlayip ates eden map boyunca takip eden solucan dusman
+	 
+	 BOSSLAR:
+	 - senin elementaline gore armoru olan boss
+	
+	 ITEMLER:
+	 - x saniyede bir damage bloklayan item
+	  
+	 BOLUM TEMALARI:
+	 - col
+	 - orman
+	 
+	 PICKUP ITEMLERI
+	 - aldiginda jumplari 0layan sey
+	 - can dolduran yemek
+	 - potion
 	 */
 	
 	
 	private static final long serialVersionUID = 1L;
 	
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
+	public static final int WIDTH = 1000;
+	public static final int HEIGHT = 700;
 	
 	private boolean running = false;
 	private Thread thread;
@@ -83,7 +102,6 @@ public class Main extends Canvas implements Runnable {
 		tex = new Texture();
 		cam = new Camera(0, 0);
 		handler = new Handler(cam);
-
 		handler.LoadImageLevel(level);
 		
 		this.addKeyListener(new KeyInput(handler));

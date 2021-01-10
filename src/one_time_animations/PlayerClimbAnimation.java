@@ -26,9 +26,9 @@ public class PlayerClimbAnimation extends GameObject {
 		playing = true;
 		this.handler = handler;
 		if (facing == 1)
-			playerClimb = new Animation(4, tex.playerClimb[0], tex.playerClimb[1], tex.playerClimb[2], tex.playerClimb[3], tex.playerClimb[4], tex.playerClimb[5], tex.playerClimb[6]);
+			playerClimb = new Animation(4, tex.playerClimb[0], tex.playerClimb[1], tex.playerClimb[2], tex.playerClimb[3], tex.playerClimb[4], tex.playerClimb[5]);
 		else
-			playerClimb = new Animation(4, tex.playerClimb[13], tex.playerClimb[12], tex.playerClimb[11], tex.playerClimb[10], tex.playerClimb[9], tex.playerClimb[8], tex.playerClimb[7]);
+			playerClimb = new Animation(4, tex.playerClimb[13], tex.playerClimb[12], tex.playerClimb[11], tex.playerClimb[10], tex.playerClimb[9], tex.playerClimb[8]);
 	}
 
 	public void tick(ArrayList<GameObject> object) {
