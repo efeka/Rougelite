@@ -64,7 +64,7 @@ public class ArrowProjectile extends GameObject {
 	}
 	
 	private void collision(ArrayList<GameObject> object) {
-		if (!handler.player.getInvulnerable()) {
+		if (!handler.player.getDashing()) {
 			if (getBounds().intersects(handler.player.getBounds())) {
 				object.remove(this);
 				handler.player.takeDamage(1);

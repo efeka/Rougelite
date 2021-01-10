@@ -31,8 +31,6 @@ public class Player extends GameObject {
 	public long attackTime = 0L;
 	private long invulnerableTimer = 0L;
 
-	private boolean alive = true;
-
 	private Animation playerWalk, playerWalkLeft;
 	private Animation invulIdleRight, invulIdleLeft, invulWalk, invulWalkLeft, invulJump, invulJumpLeft, invulFall, invulFallLeft, invulCrouch, invulCrouchLeft;
 
@@ -64,7 +62,6 @@ public class Player extends GameObject {
 
 		if (System.currentTimeMillis() - invulnerableTimer > 1000) 
 			invulnerable = false;
-
 
 		if (hanging) {
 			jumping = false;
@@ -155,10 +152,10 @@ public class Player extends GameObject {
 	}
 
 	public void takeDamage(int damage) {
-		if (alive && !invulnerable) {
+		if (PlayerInfo.alive && !invulnerable) {
 			PlayerInfo.health -= damage;
 			if (PlayerInfo.health <= 0)
-				alive = false;
+				PlayerInfo.alive = false;
 			invulnerableTimer = System.currentTimeMillis();
 			invulnerable = true;
 		}
@@ -167,7 +164,7 @@ public class Player extends GameObject {
 	private void collision(ArrayList<GameObject> object) {
 		for (int i = 0; i < handler.layer2.size(); i++) {
 			GameObject tempObject = handler.layer2.get(i);
-			if ((tempObject.getId() == ObjectId.Block || tempObject.getId() == ObjectId.ShooterTrap || tempObject.getId() == ObjectId.ChangingShooterTrap) && tempObject.getCollidable()) {
+			if ((tempObject.getId() == ObjectId.Block || tempObject.getId() == ObjectId.ShooterTrap || tempObject.getId() == ObjectId.ChangingShooterTrap || tempObject.getId() == ObjectId.Pedestal) && tempObject.getCollidable()) {
 				if (getBoundsBot().intersects(tempObject.getBounds()) && !cam.isMoving()) {
 					y = tempObject.getY() - height;
 					velY = 0;
@@ -212,7 +209,7 @@ public class Player extends GameObject {
 			if (tempObject.getId() == ObjectId.BasicEnemy) {
 				if (attacking) {
 					if (getAttackBounds().intersects(tempObject.getBounds())) {
-						((TempEnemy) tempObject).takeDamage(25);
+						((TempEnemy) tempObject).takeDamage(PlayerInfo.damage);
 					}
 				}
 			}

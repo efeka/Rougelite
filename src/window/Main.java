@@ -104,8 +104,8 @@ public class Main extends Canvas implements Runnable {
 		handler = new Handler(cam);
 		handler.LoadImageLevel(level);
 		
-		this.addKeyListener(new KeyInput(handler));
-		this.addMouseListener(new MouseInput(handler));
+		addKeyListener(new KeyInput(handler));
+		addMouseListener(new MouseInput(handler));
 	}
 	
 	public synchronized void start() {

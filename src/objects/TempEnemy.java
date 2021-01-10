@@ -17,7 +17,7 @@ public class TempEnemy extends GameObject {
 
 	Handler handler;
 	
-	private int health = 100;
+	private int health = 5;
 	boolean alive = true;
 	private long invulnerableTimer = 0L;
 
@@ -28,9 +28,8 @@ public class TempEnemy extends GameObject {
 	}
 
 	public void tick(ArrayList<GameObject> object) {
-		if (System.currentTimeMillis() - invulnerableTimer > 1000) {
+		if (System.currentTimeMillis() - invulnerableTimer > 1000) 
 			invulnerable = false;
-		}
 
 		x += velX;
 		y += velY;
@@ -49,7 +48,7 @@ public class TempEnemy extends GameObject {
 	}
 	
 	private void collision(ArrayList<GameObject> object) {
-		if (getBounds().intersects(handler.player.getBounds())) 
+		if (alive && !handler.player.getDashing() && getBounds().intersects(handler.player.getBounds())) 
 			handler.player.takeDamage(2);
 		
 		for (int i = 0; i < object.size(); i++) {
@@ -64,8 +63,10 @@ public class TempEnemy extends GameObject {
 	public void takeDamage(int damage) {
 		if (alive && !invulnerable) {
 			health -= damage;
-			if (health <= 0)
+			if (health <= 0) {
 				alive = false;
+				health = 0;
+			}
 			invulnerableTimer = System.currentTimeMillis();
 			invulnerable = true;
 		}
@@ -73,16 +74,19 @@ public class TempEnemy extends GameObject {
 
 	public void render(Graphics g) {
 		switch(health) {
-		case 100:
+		case 5:
 			g.setColor(new Color(0, 255, 0));
 			break;
-		case 75:
+		case 4:
 			g.setColor(new Color(100, 200, 0));
 			break;
-		case 50:
+		case 3:
 			g.setColor(new Color(150, 150, 0));
 			break;
-		case 25:
+		case 2:
+			g.setColor(new Color(255, 100, 0));
+			break;
+		case 1:
 			g.setColor(new Color(255, 0, 0));
 			break;
 		case 0:

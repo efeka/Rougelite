@@ -17,6 +17,8 @@ public class KeyInput extends KeyAdapter{
 	public static boolean rightPressed = false, rightReleased = false;
 	public static boolean leftPressed = false, leftReleased = false;
 	private boolean lastPressedIsLeft = false;
+	
+	public static boolean pressedUse = false;
 
 	public static boolean showCollisionBoxes = false;
 
@@ -71,6 +73,8 @@ public class KeyInput extends KeyAdapter{
 					tempObject.setX(Handler.playerStartX);
 					tempObject.setY(Handler.playerStartY);
 					PlayerInfo.health = PlayerInfo.maxHealth;
+					PlayerInfo.alive = true;
+					handler.player.setInvulnerable(false);
 				}
 			}
 		}
@@ -79,6 +83,9 @@ public class KeyInput extends KeyAdapter{
 		}
 		if (key == KeyEvent.VK_X) {
 			showCollisionBoxes = !showCollisionBoxes;
+		}
+		if (key == KeyEvent.VK_E) {
+			pressedUse = true;
 		}
 	}
 
@@ -104,6 +111,9 @@ public class KeyInput extends KeyAdapter{
 				}
 				if (key == KeyEvent.VK_S && !tempObject.dashing) 
 					tempObject.setCrouching(false);
+				if (key == KeyEvent.VK_E) {
+					pressedUse = false;
+				}
 			}
 		}
 	}

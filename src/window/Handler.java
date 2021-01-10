@@ -6,9 +6,11 @@ import java.util.ArrayList;
 
 import framework.GameObject;
 import framework.ObjectId;
+import items.Food;
 import objects.Block;
 import objects.ChangingShooterTrap;
 import objects.HUD;
+import objects.Pedestal;
 import objects.Player;
 import objects.ShooterTrap;
 import objects.TempEnemy;
@@ -31,6 +33,8 @@ public class Handler {
 	
 	public Player player;
 	public static int playerStartX, playerStartY;
+	
+	public ArrayList<GameObject> pedestals = new ArrayList<GameObject>(); 
 	
 	public Handler(Camera cam) {
 		this.cam = cam;
@@ -88,9 +92,19 @@ public class Handler {
 					playerStartX = xx * 32;
 					playerStartY = yy * 32;
 				}
+				
+				//items
+				if (red == 94 && green == 106 && blue == 130) {
+					addObject(new Food(xx * 32 + 10, yy * 32 - 33, this, ObjectId.Food), BOTTOM_LAYER);
+					addObject(new Pedestal(xx * 32, yy * 32, this, ObjectId.Pedestal), BOTTOM_LAYER);
+				}
 			}
 		}
 		addObject(new HUD(0, 0, cam, this, ObjectId.HUD), TOP_LAYER);
+	}
+	
+	private GameObject createRandomItem() {
+		return new Food(0, 0, this, ObjectId.Food);
 	}
 	
 	public void tick() {

@@ -37,6 +37,14 @@ public abstract class GameObject {
 	public abstract Rectangle getBounds();
 	public abstract Rectangle getAttackBounds();
 	
+	public boolean getDashing() {
+		return dashing;
+	}
+	
+	public void setDashing(boolean dashing) {
+		this.dashing = dashing;
+	}
+	
 	public boolean getInvulnerable() {
 		return invulnerable;
 	}

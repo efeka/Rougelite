@@ -1,8 +1,12 @@
 package window;
 
+import java.awt.AWTException;
 import java.awt.Dimension;
+import java.awt.Robot;
 
 import javax.swing.JFrame;
+
+import framework.MouseInput;
 
 public class Window {
 	
@@ -21,6 +25,7 @@ public class Window {
 		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+
 		game.start();
 	}
 	

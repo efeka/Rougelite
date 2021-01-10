@@ -11,6 +11,7 @@ public class Texture {
 	private BufferedImage enemy_sheet = null;
 	private BufferedImage VFX = null;
 	private BufferedImage HUD = null;
+	private BufferedImage items = null;
 	
 	public BufferedImage[] player = new BufferedImage[15];
 	public BufferedImage[] playerInvulnerable = new BufferedImage[15];
@@ -36,6 +37,9 @@ public class Texture {
 	
 	public BufferedImage[] hearts = new BufferedImage[5];
 	
+	public BufferedImage[] item = new BufferedImage[50];
+	public BufferedImage pedestal;
+	
 	public Texture() {
 		BufferedImageLoader loader = new BufferedImageLoader();
 		try {
@@ -44,6 +48,7 @@ public class Texture {
 			enemy_sheet = loader.loadImage("/enemy_sheet.png");
 			VFX = loader.loadImage("/VFX.png");
 			HUD = loader.loadImage("/HUD.png");
+			items = loader.loadImage("/items.png");
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -103,5 +108,13 @@ public class Texture {
 		//HUD
 		for (int i = 0; i < 5; i++) 
 			hearts[i] = HUD.getSubimage(1 + 33 * i, 1, 32, 32);
+		
+		//items
+		for (int i = 0; i < 5; i++) 
+			item[i] = items.getSubimage(1 + 33 * i, 34, 32, 32);
+		
+		pedestal = items.getSubimage(1, 1, 32, 32);
+		
+		
 	}
 }
