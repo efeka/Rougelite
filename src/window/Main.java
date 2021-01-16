@@ -2,16 +2,21 @@ package window;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 
+import framework.GameObject;
 import framework.KeyInput;
 import framework.MouseInput;
 import framework.ObjectId;
 import framework.Texture;
-import objects.HUD;
 
 public class Main extends Canvas implements Runnable {
 	
@@ -20,7 +25,7 @@ public class Main extends Canvas implements Runnable {
 	 ------------
 	
 	 ELEMENTLER:
-	 - ates ve zehir archerodaki gibi
+	 + ates sureli damage ama oldurmez
 	 - buz slow atar
 	 - elektrik periyodik olarak stun
 	 
@@ -28,8 +33,8 @@ public class Main extends Canvas implements Runnable {
 	 + melee atak
 	 + atak animasyonu
 	 + playerin cani ve damage yemesi
-	 + canlarin ekranda gosterilmesi (HUD)
 	 + damage yedikten sonra invulnerable efekti
+	 + dash cooldownini goster
 	 - damage yediginde playeri notify edicek bi efekt
 	 - envanter ekrani
 	 - level sistemi
@@ -38,27 +43,27 @@ public class Main extends Canvas implements Runnable {
 	 TUZAKLAR:
 	 + ok atan tuzak
 	 + (x) ve (+) sekillerinde donusumlu ates eden tuzak
-	 - yerden ates periyodik cikaran tuzak
+	 + yerden ates periyodik cikaran tuzak
 	 - yerden cikip saga sola oynayan bicak
 	 - menziline girdiginde sana hedef alip chargelayip ates eden cannon
 	  
 	 DUSMAN TIPLERI:
-	 - her temaya ozel dusman bul
+	!- her temaya ozel dusman bul
+	 + hayvan gibi kovalayip ziplayabilen melee dusman
 	 - kovalayan, ates ederken duran, sadece arkasindan damage yiyen dusman
 	 - elemental vuran dusman
 	 - duvarin icinden vurabilen dusman
-	 - melee kovayalan dusman
 	 - attiklari duvara carpan dusman (1li 2li 3lu ates edebilir) sana hedef alir
-	 - hayvan gibi kovalayip ziplayabilen melee dusman?
 	 - mermisi kovalamaya calisan dusman
 	 - attigi sey duvardan seken dusman
-	 - senden kacip ates etrafina edip kacmaya devam eden dusman
+	 - senden kacip etrafina ates edip kacmaya devam eden dusman
 	 - zeminden firlayip ates eden map boyunca takip eden solucan dusman
 	 
 	 BOSSLAR:
 	 - senin elementaline gore armoru olan boss
 	
 	 ITEMLER:
+	 + maksimum cani artirip dolduran item
 	 - x saniyede bir damage bloklayan item
 	  
 	 BOLUM TEMALARI:
@@ -66,11 +71,11 @@ public class Main extends Canvas implements Runnable {
 	 - orman
 	 
 	 PICKUP ITEMLERI
+	 + para
 	 - aldiginda jumplari 0layan sey
 	 - can dolduran yemek
 	 - potion
 	 */
-	
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -85,12 +90,14 @@ public class Main extends Canvas implements Runnable {
 	public static int LEVEL = 1;
 	
 	public static Texture tex;
-	
+	PauseMenu pauseMenu; 
 	Handler handler;
 	Camera cam;
+	private static Font font;
 	
 	public static enum STATE{
 		MENU,
+		PAUSE_MENU,
 		GAME,
 		SKINS,
 		LEVELS,
@@ -103,7 +110,7 @@ public class Main extends Canvas implements Runnable {
 		cam = new Camera(0, 0);
 		handler = new Handler(cam);
 		handler.LoadImageLevel(level);
-		
+		pauseMenu = new PauseMenu(WIDTH / 2 - PauseMenu.WIDTH / 2, HEIGHT / 2 - PauseMenu.HEIGHT / 2, ObjectId.PauseMenu);
 		addKeyListener(new KeyInput(handler));
 		addMouseListener(new MouseInput(handler));
 	}
@@ -136,8 +143,8 @@ public class Main extends Canvas implements Runnable {
 			delta += (now - lastTime) / ns;
 			lastTime = now;
 			while(delta >= 1){
-//				if (Game.state == Game.STATE.MENU)
-//					Menu.tick();
+				if (state == STATE.PAUSE_MENU)
+					pauseMenu.tick(new ArrayList<GameObject>());
 				tick();
 				delta--;
 			}
@@ -190,9 +197,9 @@ public class Main extends Canvas implements Runnable {
 			g2d.translate(cam.getX(), -cam.getY());
 			//===cam ending===
 		}
-//		else if (state == STATE.MENU) {
-//			menu.render(g);
-//		}
+		else if (state == STATE.PAUSE_MENU) {
+			pauseMenu.render(g);
+		}
 //		
 //		else if (state == STATE.SKINS) {
 //			Skins.render(g);
@@ -214,8 +221,18 @@ public class Main extends Canvas implements Runnable {
 		return tex;
 	}
 	
+	public static Font getFont(int points) {
+		InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream("FiveByFive.ttf");
+		try {
+			font = Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont((float) points);
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
+		return font;
+	}
+	
 	public static void main(String[] args) {
-		new Window(WIDTH, HEIGHT, "Platformer", new Main());
+		new Window(WIDTH, HEIGHT, "ROUGELITE", new Main());
 	}
 	
 }

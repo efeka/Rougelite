@@ -56,4 +56,10 @@ public class AttackAnimation extends GameObject {
 	public Rectangle getAttackBounds() {
 		return null;
 	}
+
+	@Override
+	public void takeDamage(int damage) {
+		// TODO Auto-generated method stub
+		
+	}
 }

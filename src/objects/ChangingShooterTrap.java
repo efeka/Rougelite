@@ -73,4 +73,10 @@ public class ChangingShooterTrap extends GameObject {
 		return null;
 	}
 
+	@Override
+	public void takeDamage(int damage) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

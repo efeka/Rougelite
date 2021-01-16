@@ -24,7 +24,7 @@ public class MouseInput implements MouseListener {
 
 	public void mousePressed(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1) {
-			if (!handler.player.jumping && !handler.player.crouching && !handler.player.dashing && System.currentTimeMillis() - attackCooldown > 500) {
+			if (!handler.player.hanging && !handler.player.jumping && !handler.player.crouching && !handler.player.dashing && System.currentTimeMillis() - attackCooldown > 500) {
 				handler.addObject(new AttackAnimation(handler.player.getX() + 16, handler.player.getY() + 5, handler.player.facing, handler, ObjectId.AttackAnimation), Handler.TOP_LAYER);
 				attackCooldown = System.currentTimeMillis();
 				handler.player.setVelX(0);

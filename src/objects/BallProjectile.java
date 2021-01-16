@@ -29,12 +29,20 @@ public class BallProjectile extends GameObject {
 	
 	private Texture tex = Main.getTex();
 	private Animation ballAnim;
-
+	
+	public BallProjectile(float x, float y, float velX, float velY, Handler handler, ObjectId id) {
+		super(x, y, id);
+		this.handler = handler;
+		width = height = 16;
+		ballAnim = new Animation(2, tex.ball[0], tex.ball[1], tex.ball[2], tex.ball[3]);
+		this.velX = velX;
+		this.velY = velY;
+	}
+	
 	public BallProjectile(float x, float y, int direction, Handler handler, ObjectId id) {
 		super(x, y, id);
 		this.handler = handler;
 		width = height = 16;
-		
 		ballAnim = new Animation(2, tex.ball[0], tex.ball[1], tex.ball[2], tex.ball[3]);
 		
 		switch(direction) {
@@ -114,6 +122,12 @@ public class BallProjectile extends GameObject {
 
 	public Rectangle getAttackBounds() {
 		return null;
+	}
+
+	@Override
+	public void takeDamage(int damage) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

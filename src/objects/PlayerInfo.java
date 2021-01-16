@@ -11,6 +11,6 @@ public class PlayerInfo {
 	public static int health = 10;
 	public static boolean alive = true;
 	public static int damage = 2;
-	
+	public static int gold = 0;
 	public static ArrayList<GameObject> inventory = new ArrayList<GameObject>();
 }

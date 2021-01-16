@@ -10,12 +10,18 @@ public enum ObjectId {
 	AttackAnimation(),
 	ShooterTrap(),
 	ChangingShooterTrap(),
+	FireTrap(),
 	ArrowProjectile(),
 	BallProjectile(),
 	Food(),
 	BasicEnemy(),
 	Trail(),
 	HUD(),
-	Pedestal()
+	Pedestal(),
+	PauseMenu(),
+	ChasingMeleeEnemy(),
+	BigShooterTrap(),
+	Gold(),
+	BurningAnimation()
 	
 }

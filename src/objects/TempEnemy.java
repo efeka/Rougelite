@@ -48,8 +48,10 @@ public class TempEnemy extends GameObject {
 	}
 	
 	private void collision(ArrayList<GameObject> object) {
-		if (alive && !handler.player.getDashing() && getBounds().intersects(handler.player.getBounds())) 
-			handler.player.takeDamage(2);
+		if (alive && !handler.player.getDashing() && getBounds().intersects(handler.player.getBounds())) {
+			//handler.player.takeDamage(2);
+			handler.player.setOnFire(true);
+		}
 		
 		for (int i = 0; i < object.size(); i++) {
 			GameObject tempObject = object.get(i);
@@ -62,6 +64,8 @@ public class TempEnemy extends GameObject {
 
 	public void takeDamage(int damage) {
 		if (alive && !invulnerable) {
+			velY = -4;
+			velX = 0;
 			health -= damage;
 			if (health <= 0) {
 				alive = false;

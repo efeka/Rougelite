@@ -12,7 +12,7 @@ public class KeyInput extends KeyAdapter{
 
 	Handler handler;
 
-	long dashCooldown = 0L;
+	public static long dashCooldown = 0L;
 
 	public static boolean rightPressed = false, rightReleased = false;
 	public static boolean leftPressed = false, leftReleased = false;
@@ -62,7 +62,7 @@ public class KeyInput extends KeyAdapter{
 					if (!tempObject.getHanging())
 						handler.layer3.add(new DustAnimation(tempObject.getX(), tempObject.getY() + tempObject.getHeight() - 48, handler, ObjectId.DustAnimation));
 				}
-				if (key == KeyEvent.VK_SHIFT && !tempObject.getCrouching() && !tempObject.hanging && System.currentTimeMillis() - dashCooldown > 1000) {
+				if (key == KeyEvent.VK_SHIFT && !tempObject.getCrouching() && !tempObject.hanging && System.currentTimeMillis() - dashCooldown > 1500) {
 					dashCooldown = System.currentTimeMillis();
 					tempObject.dashing = true;
 					tempObject.setVelY(0);
@@ -78,14 +78,19 @@ public class KeyInput extends KeyAdapter{
 				}
 			}
 		}
-		if ((key == KeyEvent.VK_ESCAPE)) {
-			Main.state = Main.STATE.MENU;
-		}
 		if (key == KeyEvent.VK_X) {
 			showCollisionBoxes = !showCollisionBoxes;
 		}
 		if (key == KeyEvent.VK_E) {
 			pressedUse = true;
+		}
+		if (key == KeyEvent.VK_ESCAPE) {
+			if (Main.state == Main.STATE.GAME) {
+				Main.state = Main.STATE.PAUSE_MENU;
+			}
+			else if (Main.state == Main.STATE.PAUSE_MENU) {
+				Main.state = Main.STATE.GAME;
+			}
 		}
 	}
 

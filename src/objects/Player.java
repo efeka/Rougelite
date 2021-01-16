@@ -10,6 +10,7 @@ import framework.GameObject;
 import framework.KeyInput;
 import framework.ObjectId;
 import framework.Texture;
+import one_time_animations.BurningAnimation;
 import one_time_animations.PlayerClimbAnimation;
 import one_time_animations.Trail;
 import window.Animation;
@@ -30,10 +31,15 @@ public class Player extends GameObject {
 	private long climbTime = 0L;
 	public long attackTime = 0L;
 	private long invulnerableTimer = 0L;
+	
+	private int maxFireDamageCount = 3;
+	private int fireDamageTaken = 0;
+	private int fireDamageInterval = 0;
 
 	private Animation playerWalk, playerWalkLeft;
 	private Animation invulIdleRight, invulIdleLeft, invulWalk, invulWalkLeft, invulJump, invulJumpLeft, invulFall, invulFallLeft, invulCrouch, invulCrouchLeft;
-
+	private BurningAnimation burningAnim;
+	
 	public Player(float x, float y, Handler handler, Camera cam, ObjectId id) {
 		super(x, y, id);
 		width = height = 48;
@@ -52,12 +58,29 @@ public class Player extends GameObject {
 		invulFallLeft = new Animation(4, tex.playerJump[2], tex.playerJumpInvulnerable[2]);
 		invulCrouch = new Animation(4, tex.playerCrouch[0], tex.playerCrouchInvulnerable[0]);
 		invulCrouchLeft = new Animation(4, tex.playerCrouch[1], tex.playerCrouchInvulnerable[1]);
+		
+		burningAnim = new BurningAnimation(x, y, 10, -35, 28, 64, true, false, handler, ObjectId.BurningAnimation);
+		handler.addObject(burningAnim, Handler.MIDDLE_LAYER);
 	}
 
 	public void tick(ArrayList<GameObject> object) {
 		if (cam.isMoving()) {
 			x -= cam.moveX;
 			y -= cam.moveY;
+		}
+		
+		if (onFire && fireDamageTaken < maxFireDamageCount) {
+			if (fireDamageInterval++ == 65) {
+				fireDamageInterval = 0;
+				fireDamageTaken++;
+				if (PlayerInfo.health > 1) 
+					takeFireDamage(1);	
+			}
+		}
+		else {
+			fireDamageInterval = 0;
+			onFire = false;
+			fireDamageTaken = 0;
 		}
 
 		if (System.currentTimeMillis() - invulnerableTimer > 1000) 
@@ -149,6 +172,12 @@ public class Player extends GameObject {
 		invulFallLeft.runAnimation();
 		invulCrouch.runAnimation();
 		invulCrouchLeft.runAnimation();
+		burningAnim.show = onFire;
+	}
+	
+	public void takeFireDamage(int damage) {
+		if (!dashing && PlayerInfo.alive && PlayerInfo.health > 1)
+			PlayerInfo.health -= damage;
 	}
 
 	public void takeDamage(int damage) {
@@ -164,7 +193,7 @@ public class Player extends GameObject {
 	private void collision(ArrayList<GameObject> object) {
 		for (int i = 0; i < handler.layer2.size(); i++) {
 			GameObject tempObject = handler.layer2.get(i);
-			if ((tempObject.getId() == ObjectId.Block || tempObject.getId() == ObjectId.ShooterTrap || tempObject.getId() == ObjectId.ChangingShooterTrap || tempObject.getId() == ObjectId.Pedestal) && tempObject.getCollidable()) {
+			if ((tempObject.getId() == ObjectId.Block || tempObject.getId() == ObjectId.ShooterTrap || tempObject.getId() == ObjectId.ChangingShooterTrap || tempObject.getId() == ObjectId.FireTrap) && tempObject.getCollidable()) {
 				if (getBoundsBot().intersects(tempObject.getBounds()) && !cam.isMoving()) {
 					y = tempObject.getY() - height;
 					velY = 0;
@@ -206,10 +235,10 @@ public class Player extends GameObject {
 
 			}
 
-			if (tempObject.getId() == ObjectId.BasicEnemy) {
-				if (attacking) {
-					if (getAttackBounds().intersects(tempObject.getBounds())) {
-						((TempEnemy) tempObject).takeDamage(PlayerInfo.damage);
+			if (attacking) {
+				if (tempObject.getId() == ObjectId.BasicEnemy || tempObject.getId() == ObjectId.ChasingMeleeEnemy) {
+					if (getAttackBounds().intersects(tempObject.getBounds())) { 
+						tempObject.takeDamage(PlayerInfo.damage);
 					}
 				}
 			}
@@ -218,6 +247,13 @@ public class Player extends GameObject {
 	}
 
 	public void render(Graphics g) {
+		if (burningAnim.show) 
+			burningAnim.render(g);
+		
+		if (!dashing && System.currentTimeMillis() - KeyInput.dashCooldown < 1500) {
+			g.setColor(new Color(230, 230, 230));
+			g.fillRect((int) x + 25 + (int) -(1500 - System.currentTimeMillis() + KeyInput.dashCooldown) / 70, (int) y - 10, (int) (1500 - System.currentTimeMillis() + KeyInput.dashCooldown) / 35, 5);
+		}
 		//dashing
 		if (dashing) {
 			if (facing == 1)

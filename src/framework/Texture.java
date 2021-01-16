@@ -34,11 +34,18 @@ public class Texture {
 	public BufferedImage[] ball = new BufferedImage[4];
 	public BufferedImage[] shooterTrap = new BufferedImage[4];
 	public BufferedImage[] changingShooterTrap = new BufferedImage[2];
+	public BufferedImage fireTrap;
+	public BufferedImage[] fireLaser = new BufferedImage[6];
+	public BufferedImage[] burningEffect = new BufferedImage[6];
+	public BufferedImage[] cannonTrap = new BufferedImage[2];
 	
 	public BufferedImage[] hearts = new BufferedImage[5];
+	public BufferedImage hud;
 	
 	public BufferedImage[] item = new BufferedImage[50];
 	public BufferedImage pedestal;
+	
+	public BufferedImage[] gold = new BufferedImage[6];
 	
 	public Texture() {
 		BufferedImageLoader loader = new BufferedImageLoader();
@@ -95,6 +102,10 @@ public class Texture {
 		changingShooterTrap[0] = enemy_sheet.getSubimage(1, 1 + 33 * 2, 32, 32);
 		changingShooterTrap[1] = enemy_sheet.getSubimage(1 + 33, 1 + 33 * 2, 32, 32);
 		
+		cannonTrap[0] = enemy_sheet.getSubimage(1, 197, 48, 48);
+		
+		fireTrap = enemy_sheet.getSubimage(133, 34, 32, 32);
+		
 		//effects
 		for (int i = 0; i < 5; i++)
 			dustEffect[i] = VFX.getSubimage(1 + 33 * i, 1, 32, 32);
@@ -104,10 +115,13 @@ public class Texture {
 			attackEffect[i] = VFX.getSubimage(1 + 130 * i, 34, 129, 129);
 		for (int i = 0; i < 4; i++)
 			attackEffect[i + 4] = VFX.getSubimage(1 + 130 * i, 34 + 129, 129, 129);
+		for (int i = 0; i < 6; i++)
+			burningEffect[i] = VFX.getSubimage(10 * 33 + 1 + i * 33, 1, 32, 32);
 		
 		//HUD
 		for (int i = 0; i < 5; i++) 
 			hearts[i] = HUD.getSubimage(1 + 33 * i, 1, 32, 32);
+		hud = HUD.getSubimage(1, 34, 32 * 3, 64);
 		
 		//items
 		for (int i = 0; i < 5; i++) 
@@ -115,6 +129,12 @@ public class Texture {
 		
 		pedestal = items.getSubimage(1, 1, 32, 32);
 		
+		for (int i = 0; i < 6; i++)
+			gold[i] = items.getSubimage(34 + 33 * i, 34, 32, 32);
+		
+		
+		for (int i = 0; i < 6; i++)
+			fireLaser[i] = enemy_sheet.getSubimage(1 + 33 * i, 100, 32, 96);
 		
 	}
 }

@@ -31,9 +31,8 @@ public class Trail extends GameObject {
 	}
 
 	public void tick(ArrayList<GameObject> object) {
-		if (alpha > life) {
+		if (alpha > life) 
 			alpha -= life - 0.01f;
-		}
 		else
 			handler.removeObject(this);
 	}
@@ -56,6 +55,12 @@ public class Trail extends GameObject {
 	
 	public Rectangle getAttackBounds() {
 		return null;
+	}
+
+	@Override
+	public void takeDamage(int damage) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

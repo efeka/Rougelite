@@ -18,6 +18,8 @@ public abstract class GameObject {
 	protected boolean crouching = false;
 	protected boolean hasDoubleJump = true;
 	protected boolean invulnerable = false;
+	protected boolean knockedBack = false;
+	protected boolean onFire = false;
 	
 	protected boolean falling = true;
 	protected boolean jumping = false;
@@ -36,6 +38,15 @@ public abstract class GameObject {
 	public abstract void render(Graphics g);
 	public abstract Rectangle getBounds();
 	public abstract Rectangle getAttackBounds();
+	public abstract void takeDamage(int damage);
+	
+	public boolean getOnFire() {
+		return onFire;
+	}
+	
+	public void setOnFire(boolean onFire) {
+		this.onFire = onFire;
+	}
 	
 	public boolean getDashing() {
 		return dashing;

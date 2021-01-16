@@ -7,8 +7,12 @@ import java.util.ArrayList;
 import framework.GameObject;
 import framework.ObjectId;
 import items.Food;
+import items.Gold;
+import objects.BigShooterTrap;
 import objects.Block;
 import objects.ChangingShooterTrap;
+import objects.ChasingMeleeEnemy;
+import objects.FireTrap;
 import objects.HUD;
 import objects.Pedestal;
 import objects.Player;
@@ -18,7 +22,6 @@ import objects.TempEnemy;
 public class Handler {
 	
 	private Camera cam;
-	
 	private GameObject tempObject;
 	
 	public BufferedImage level1 = null, level2 = null, level3 = null;
@@ -33,8 +36,6 @@ public class Handler {
 	
 	public Player player;
 	public static int playerStartX, playerStartY;
-	
-	public ArrayList<GameObject> pedestals = new ArrayList<GameObject>(); 
 	
 	public Handler(Camera cam) {
 		this.cam = cam;
@@ -71,7 +72,7 @@ public class Handler {
 				if (red == 127 && green == 0 && blue == 0)
 					addObject(new Block(xx * 32, yy * 32, 4, false, false, ObjectId.Block), BOTTOM_LAYER);
 				
-				//enemies
+				//traps
 				if (red == 255 && green == 0 && blue == 0)
 					addObject(new TempEnemy(xx * 32, yy * 32, this, ObjectId.BasicEnemy), MIDDLE_LAYER);
 				if (red == 182 && green == 255 && blue == 0)
@@ -84,7 +85,15 @@ public class Handler {
 					addObject(new ShooterTrap(xx * 32, yy * 32, ShooterTrap.SHOOT_DOWN, 1500, this, ObjectId.ShooterTrap), MIDDLE_LAYER);
 				if (red == 0 && green == 127 && blue == 14)
 					addObject(new ChangingShooterTrap(xx * 32, yy * 32, 1500, this, ObjectId.ChangingShooterTrap), MIDDLE_LAYER);
+				if (red == 235 && green == 157 && blue == 69)
+					addObject(new FireTrap(xx * 32, yy * 32, this, ObjectId.FireTrap), MIDDLE_LAYER);
 				
+				//enemies
+				if (red == 215 && green == 77 && blue == 76)
+					addObject(new ChasingMeleeEnemy(xx * 32, yy * 32, this, ObjectId.ChasingMeleeEnemy), MIDDLE_LAYER);
+				if (red == 0 && green == 255 && blue == 255)
+					addObject(new BigShooterTrap(xx * 32, yy * 32, this, ObjectId.BigShooterTrap), MIDDLE_LAYER);
+					
 				//player
 				if (red == 0 && green == 0 && blue == 255) {
 					player = new Player(xx * 32, yy * 32, this, cam, ObjectId.Player);
@@ -95,16 +104,19 @@ public class Handler {
 				
 				//items
 				if (red == 94 && green == 106 && blue == 130) {
-					addObject(new Food(xx * 32 + 10, yy * 32 - 33, this, ObjectId.Food), BOTTOM_LAYER);
-					addObject(new Pedestal(xx * 32, yy * 32, this, ObjectId.Pedestal), BOTTOM_LAYER);
+					addObject(new Pedestal(xx * 32, yy * 32, null, ObjectId.Pedestal), BOTTOM_LAYER);
+					GameObject item = createRandomItem(xx * 32 + 10, yy * 32 - 32);
+					addObject((item), BOTTOM_LAYER);
 				}
+				if (red == 246 && green == 228 && blue == 85)
+					addObject(new Gold(xx * 32, yy * 32, this, ObjectId.Gold), MIDDLE_LAYER);
 			}
 		}
-		addObject(new HUD(0, 0, cam, this, ObjectId.HUD), TOP_LAYER);
+		addObject(new HUD(0, 0, this, ObjectId.HUD), TOP_LAYER);
 	}
 	
-	private GameObject createRandomItem() {
-		return new Food(0, 0, this, ObjectId.Food);
+	private GameObject createRandomItem(float xx, float yy) {
+		return new Food(xx, yy, this, ObjectId.Food);
 	}
 	
 	public void tick() {
