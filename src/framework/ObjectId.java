@@ -22,6 +22,10 @@ public enum ObjectId {
 	ChasingMeleeEnemy(),
 	BigShooterTrap(),
 	Gold(),
-	BurningAnimation()
+	BurningAnimation(),
+	LaserAttack(),
+	StompingTrap(),
+	PopUpSpike(),
+	PopUpSpikeAnimation()
 	
 }

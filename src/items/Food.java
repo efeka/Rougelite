@@ -60,8 +60,9 @@ public class Food extends GameObject {
 			showText = true;
 			if (KeyInput.pressedUse) {
 				handler.removeObject(this);
-				PlayerInfo.maxHealth += 3;
-				PlayerInfo.health += 3;
+//				PlayerInfo.maxHealth += 3;
+//				PlayerInfo.health += 3;
+				PlayerInfo.armor += 3;
 				KeyInput.pressedUse = false;
 			}
 		}

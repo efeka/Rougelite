@@ -2,7 +2,6 @@ package objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -73,7 +72,7 @@ public class Player extends GameObject {
 			if (fireDamageInterval++ == 65) {
 				fireDamageInterval = 0;
 				fireDamageTaken++;
-				if (PlayerInfo.health > 1) 
+				if (PlayerInfo.health > 1 || PlayerInfo.armor > 0) 
 					takeFireDamage(1);	
 			}
 		}
@@ -176,12 +175,33 @@ public class Player extends GameObject {
 	}
 	
 	public void takeFireDamage(int damage) {
-		if (!dashing && PlayerInfo.alive && PlayerInfo.health > 1)
+		if (!dashing && PlayerInfo.alive && (PlayerInfo.health > 1 || PlayerInfo.armor > 0)) {
+			if (PlayerInfo.armor > 0) {
+				if (damage <= PlayerInfo.armor) {
+					PlayerInfo.armor -= damage;
+					damage = 0;
+				}
+				else {
+					damage -= PlayerInfo.armor;
+					PlayerInfo.armor = 0;
+				}
+			}
 			PlayerInfo.health -= damage;
+		}
 	}
 
 	public void takeDamage(int damage) {
 		if (PlayerInfo.alive && !invulnerable) {
+			if (PlayerInfo.armor > 0) {
+				if (damage <= PlayerInfo.armor) {
+					PlayerInfo.armor -= damage;
+					damage = 0;
+				}
+				else {
+					damage -= PlayerInfo.armor;
+					PlayerInfo.armor = 0;
+				}
+			}
 			PlayerInfo.health -= damage;
 			if (PlayerInfo.health <= 0)
 				PlayerInfo.alive = false;
@@ -193,7 +213,8 @@ public class Player extends GameObject {
 	private void collision(ArrayList<GameObject> object) {
 		for (int i = 0; i < handler.layer2.size(); i++) {
 			GameObject tempObject = handler.layer2.get(i);
-			if ((tempObject.getId() == ObjectId.Block || tempObject.getId() == ObjectId.ShooterTrap || tempObject.getId() == ObjectId.ChangingShooterTrap || tempObject.getId() == ObjectId.FireTrap) && tempObject.getCollidable()) {
+			if (tempObject.getCollidable() && (tempObject.getId() == ObjectId.Block || tempObject.getId() == ObjectId.ShooterTrap || tempObject.getId() == ObjectId.ChangingShooterTrap || tempObject.getId() == ObjectId.FireTrap)) {
+				
 				if (getBoundsBot().intersects(tempObject.getBounds()) && !cam.isMoving()) {
 					y = tempObject.getY() - height;
 					velY = 0;

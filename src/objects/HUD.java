@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import framework.GameObject;
 import framework.ObjectId;
 import framework.Texture;
-import window.Camera;
 import window.Handler;
 import window.Main;
 import window.Window;
@@ -44,10 +43,10 @@ public class HUD extends GameObject {
 		
 		int drawX = 0;
 		for (; drawX < maxHearts / 2; drawX++) 
-			g.drawImage(tex.hearts[3], (int) x + 124 + drawX * 33, (int) y + 15, 32, 32, null);
+			g.drawImage(tex.hearts[2], (int) x + 124 + drawX * 33, (int) y + 15, 32, 32, null);
 		
 		if (hasHalfMaxHeart) 
-			g.drawImage(tex.hearts[4], (int) x + 124 + drawX * 33, (int) y + 15, 32, 32, null);
+			g.drawImage(tex.hearts[3], (int) x + 124 + drawX * 33, (int) y + 15, 32, 32, null);
 		
 		boolean hasHalfHeart = hearts % 2 == 1;
 		if (hasHalfHeart)
@@ -59,7 +58,20 @@ public class HUD extends GameObject {
 		
 		if (hasHalfHeart) 
 			g.drawImage(tex.hearts[1], (int) x + 124 + drawX * 33, (int) y + 15, 32, 32, null);
+
 		
+		int armor = PlayerInfo.armor;
+		boolean hasHalfArmor = armor % 2 == 1;
+		if (hasHalfArmor)
+			armor -= 1;
+		
+		drawX = maxHearts / 2;
+		if (hasHalfMaxHeart)
+			drawX++;
+		for (int i = 0; i < armor / 2; i++, drawX++)
+			g.drawImage(tex.hearts[4], (int) x + 124 + drawX * 33, (int) y + 15, 32, 32, null);
+		if (hasHalfArmor)
+			g.drawImage(tex.hearts[5], (int) x + 124 + drawX * 33, (int) y + 15, 32, 32, null);
 		
 		g.setColor(Color.white);
 		g.setFont(font);

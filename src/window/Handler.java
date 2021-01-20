@@ -16,6 +16,7 @@ import objects.FireTrap;
 import objects.HUD;
 import objects.Pedestal;
 import objects.Player;
+import objects.StompingTrap;
 import objects.ShooterTrap;
 import objects.TempEnemy;
 
@@ -87,6 +88,8 @@ public class Handler {
 					addObject(new ChangingShooterTrap(xx * 32, yy * 32, 1500, this, ObjectId.ChangingShooterTrap), MIDDLE_LAYER);
 				if (red == 235 && green == 157 && blue == 69)
 					addObject(new FireTrap(xx * 32, yy * 32, this, ObjectId.FireTrap), MIDDLE_LAYER);
+				if (red == 104 && green == 125 && blue == 168)
+					addObject(new StompingTrap(xx * 32, yy * 32, this, ObjectId.StompingTrap), MIDDLE_LAYER);
 				
 				//enemies
 				if (red == 215 && green == 77 && blue == 76)

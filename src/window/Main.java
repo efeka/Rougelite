@@ -43,13 +43,14 @@ public class Main extends Canvas implements Runnable {
 	 TUZAKLAR:
 	 + ok atan tuzak
 	 + (x) ve (+) sekillerinde donusumlu ates eden tuzak
-	 + yerden ates periyodik cikaran tuzak
+	 + yerden periyodik ates cikaran tuzak
 	 - yerden cikip saga sola oynayan bicak
 	 - menziline girdiginde sana hedef alip chargelayip ates eden cannon
 	  
 	 DUSMAN TIPLERI:
 	!- her temaya ozel dusman bul
 	 + hayvan gibi kovalayip ziplayabilen melee dusman
+	 + sen yaklasinca yerden cikip ates eden dusman
 	 - kovalayan, ates ederken duran, sadece arkasindan damage yiyen dusman
 	 - elemental vuran dusman
 	 - duvarin icinden vurabilen dusman
@@ -73,7 +74,7 @@ public class Main extends Canvas implements Runnable {
 	 PICKUP ITEMLERI
 	 + para
 	 - aldiginda jumplari 0layan sey
-	 - can dolduran yemek
+	 + can dolduran yemek
 	 - potion
 	 */
 	

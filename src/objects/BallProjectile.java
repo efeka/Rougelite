@@ -15,7 +15,6 @@ import window.Main;
 
 public class BallProjectile extends GameObject {
 	
-	private int direction;
 	public static final int LEFT = 0;
 	public static final int RIGHT = 1;
 	public static final int UP = 2;

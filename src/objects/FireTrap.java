@@ -11,7 +11,6 @@ import framework.KeyInput;
 import framework.ObjectId;
 import framework.Texture;
 import one_time_animations.BurningAnimation;
-import window.Animation;
 import window.Handler;
 import window.Main;
 
@@ -23,7 +22,6 @@ public class FireTrap extends GameObject {
 	private int attackTimer = 120;
 	private int timer = 0;
 	
-	private Animation fireAnim;
 	private BurningAnimation burningAnim1, burningAnim2;
 	
 	public FireTrap(float x, float y, Handler handler, ObjectId id) {

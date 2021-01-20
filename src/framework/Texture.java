@@ -39,13 +39,17 @@ public class Texture {
 	public BufferedImage[] burningEffect = new BufferedImage[6];
 	public BufferedImage[] cannonTrap = new BufferedImage[2];
 	
-	public BufferedImage[] hearts = new BufferedImage[5];
+	public BufferedImage[] hearts = new BufferedImage[6];
 	public BufferedImage hud;
 	
 	public BufferedImage[] item = new BufferedImage[50];
 	public BufferedImage pedestal;
 	
 	public BufferedImage[] gold = new BufferedImage[6];
+	
+	public BufferedImage[] bigShooter = new BufferedImage[2];
+	public BufferedImage[] stompingTrap = new BufferedImage[2];
+	public BufferedImage[] popupSpike = new BufferedImage[12];
 	
 	public Texture() {
 		BufferedImageLoader loader = new BufferedImageLoader();
@@ -119,7 +123,7 @@ public class Texture {
 			burningEffect[i] = VFX.getSubimage(10 * 33 + 1 + i * 33, 1, 32, 32);
 		
 		//HUD
-		for (int i = 0; i < 5; i++) 
+		for (int i = 0; i < 6; i++) 
 			hearts[i] = HUD.getSubimage(1 + 33 * i, 1, 32, 32);
 		hud = HUD.getSubimage(1, 34, 32 * 3, 64);
 		
@@ -135,6 +139,15 @@ public class Texture {
 		
 		for (int i = 0; i < 6; i++)
 			fireLaser[i] = enemy_sheet.getSubimage(1 + 33 * i, 100, 32, 96);
+		
+		bigShooter[0] = enemy_sheet.getSubimage(1, 197, 48, 48);
+		bigShooter[1] = enemy_sheet.getSubimage(50, 197, 32, 32);
+		
+		stompingTrap[0] = enemy_sheet.getSubimage(1, 246, 32, 48);
+		stompingTrap[1] = enemy_sheet.getSubimage(1, 295, 32, 5);
+		
+		for (int i = 0; i < 12; i++)
+			popupSpike[i] = enemy_sheet.getSubimage(34 + 33 * i, 246, 32, 32);
 		
 	}
 }

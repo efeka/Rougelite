@@ -9,8 +9,12 @@ public class PlayerInfo {
 	//1 health = 1 half heart
 	public static int maxHealth = 10;
 	public static int health = 10;
+	public static int armor = 0;
 	public static boolean alive = true;
+	
 	public static int damage = 2;
+	
 	public static int gold = 0;
+	
 	public static ArrayList<GameObject> inventory = new ArrayList<GameObject>();
 }
